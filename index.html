@@ -7,21 +7,25 @@
     <title>myLibrary</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
-    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
-    crossorigin="anonymous">
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+        crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" 
+        rel="stylesheet">
 </head>
 <body>
     <header>
         <i class="fas fa-book"></i><span> myLibrary</span>
     </header>
-    <div id="container">
+    <main id="container">
         <button id="addBook">+ New Book</button>
         <form action="#">
             <h2>Add new book</h2>
             <input type="text" name="title" id="title" placeholder="Title">
             <input type="text" name="author" id="author" placeholder="Author">
-            <input type="text" name="pages" id="pages" placeholder="Pages">
+            <input type="number" name="pages" id="pages" placeholder="Pages">
             <label for="read">
+                Read?
                 <input type="checkbox" name="read" id="read">
             </label>
             <input type="submit" value="Submit">
@@ -34,8 +38,36 @@
                 <button id="readStatus">Read</button>
                 <button id="remove">Remove</button>
             </div>
+            <div id="book1">
+                <p>The New Book of Life</p>
+                <p>Muritala Abdullahi</p>
+                <p>567 Pages</p>
+                <button id="readStatus">Read</button>
+                <button id="remove">Remove</button>
+            </div>
+            <div id="book1">
+                <p>The New Book of Life</p>
+                <p>Muritala Abdullahi</p>
+                <p>567 Pages</p>
+                <button id="readStatus">Read</button>
+                <button id="remove">Remove</button>
+            </div>
+            <div id="book1">
+                <p>The New Book of Life</p>
+                <p>Muritala Abdullahi</p>
+                <p>567 Pages</p>
+                <button id="readStatus">Read</button>
+                <button id="remove">Remove</button>
+            </div>
+            <div id="book1">
+                <p>The New Book of Life</p>
+                <p>Muritala Abdullahi</p>
+                <p>567 Pages</p>
+                <button id="readStatus">Read</button>
+                <button id="remove">Remove</button>
+            </div>
         </div>
-    </div>
+    </main>
     <script src="script.js"></script>    
 </body>
 </html>
