@@ -1,0 +1,1 @@
+Library project. Part of the odin project curriculum. Tests the knowledge of javascript object prototypes, prototypical inheritance and prototype chain. As well as basic Javascript, CSS and HTML knowledge.
