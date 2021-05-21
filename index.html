@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myLibrary</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+    crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <i class="fas fa-book"></i><span> myLibrary</span>
+    </header>
+    <div id="container">
+        <button id="addBook">+ New Book</button>
+        <form action="#">
+            <h2>Add new book</h2>
+            <input type="text" name="title" id="title" placeholder="Title">
+            <input type="text" name="author" id="author" placeholder="Author">
+            <input type="text" name="pages" id="pages" placeholder="Pages">
+            <label for="read">
+                <input type="checkbox" name="read" id="read">
+            </label>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="myBooks">
+            <div id="book1">
+                <p>The New Book of Life</p>
+                <p>Muritala Abdullahi</p>
+                <p>567 Pages</p>
+                <button id="readStatus">Read</button>
+                <button id="remove">Remove</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>    
+</body>
+</html>
