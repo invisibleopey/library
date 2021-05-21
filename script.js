@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 const form = document.querySelector("form");
 const addBookBtn = document.querySelector("#add-book-btn");
 
@@ -14,3 +6,59 @@ addBookBtn.addEventListener("click", toggleDisplay);
 function toggleDisplay () {
     form.classList.toggle("toggle-display");
 }
+
+
+let myLibrary = [];
+
+function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.info = function() {
+        return `${title} by ${author}, ${pages} pages, ${read}`
+        // return title + " by " + author + ", " + pages + " pages," + read;
+    }
+
+}
+
+// const purpleHibiscus = new Book ("Purple Hibiscus", "Chimamanda Ngozie Adichie", 307, "read");
+// console.log(purpleHibiscus.info());
+
+function addBookToLibrary() {
+    myLibrary.push(newBook);
+}
+
+
+let newBook;
+form.addEventListener("submit", submitBook);
+
+function submitBook(e) {
+    e.preventDefault();
+    newBook = Object.create(Book);
+    newBook.title = document.querySelector("#title").value;
+    newBook.author = document.querySelector("#author").value;
+    newBook.pages = document.querySelector("#pages").value;
+    newBook.read = document.querySelector("#read").checked;
+    addBookToLibrary();
+    console.log(myLibrary);
+    // console.log(newBook);
+    // console.log(document.querySelector("#title").value)
+    // console.log(document.querySelector("#author").value)
+    // console.log(document.querySelector("#pages").value)
+    // console.log(document.querySelector("#read").checked)
+    toggleDisplay();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
