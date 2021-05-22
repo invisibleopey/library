@@ -78,3 +78,6 @@ button, input[type="submit"] {
 #myBooks button {
     margin-right: 10px;
 }
+.not-read {
+    background: hsl(47, 92%, 30%);
+}
