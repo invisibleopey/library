@@ -27,6 +27,8 @@ function Book(title, author, pages, read) {
 
 function addBookToLibrary() {
     myLibrary.push(newBook);
+    saveLocal();
+    
 }
 
 
@@ -95,6 +97,7 @@ function createBookCard() {
 function removeBook (e) {
     let indexToDelete = e.target.parentNode.dataset.index;
     myLibrary.splice(indexToDelete, 1);
+    saveLocal();
     createBookCard();
     // console.log(e.target.parentNode.dataset.index);
 }
@@ -111,8 +114,22 @@ function toggleRead (e) {
         e.target.textContent = "Read";
         e.target.classList.remove("not-read");
     }
+    saveLocal();
 }
 
+// Local Storage
+
+function saveLocal() {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  }
+  
+  function restoreLocal() {
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+    if (myLibrary === null) myLibrary = [];
+    createBookCard();
+  }
+  
+  restoreLocal();
 
 
 
