@@ -6,7 +6,7 @@ let myBooksDiv = document.querySelector("#myBooks");
 let readBtn;
 let removeBtn;
 
-addBookBtn.addEventListener("click", toggleDisplay);
+addBookBtn.addEventListener("click", toggleFormDisplay);
 form.addEventListener("submit", submitBook);
 
 // Book Constructor
@@ -20,7 +20,7 @@ function Book(title, author, pages, read) {
     }
 
 }
-function toggleDisplay () {
+function toggleFormDisplay () {
     form.classList.toggle("toggle-display");
 }
 // Adding book to Library and local storage
@@ -38,7 +38,7 @@ function submitBook(e) {
     newBook.read = document.querySelector("#read").checked;
     addBookToLibrary();
     createBookCard();
-    toggleDisplay();
+    toggleFormDisplay();
 
 }
 // The Grid of Books
