@@ -52,8 +52,29 @@ button, input[type="submit"] {
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     grid-gap: 1rem;
 }
+@media (min-width: 540px) {
+    #myBooks {
+        width: 70%;
+        margin: 2em auto;
+    }
+}
+@media (min-width: 760px) {
+    #myBooks {
+        width: 60%;
+        margin: 2em auto;
+    }
+}
+@media (min-width: 1020px) {
+    #myBooks {
+        width: 40%;
+        margin: 2em auto;
+    }
+}
 #myBooks > * {
     background: rgba(26, 41, 48, 0.5);
     padding: 10px;
     border-radius: 10px;
+}
+#myBooks button {
+    margin-right: 10px;
 }
