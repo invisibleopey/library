@@ -1,15 +1,15 @@
 const form = document.querySelector("form");
 const addBookBtn = document.querySelector("#add-book-btn");
+let myLibrary = [];
+let newBook;
+let myBooksDiv = document.querySelector("#myBooks");
+let readBtn;
+let removeBtn;
 
 addBookBtn.addEventListener("click", toggleDisplay);
+form.addEventListener("submit", submitBook);
 
-function toggleDisplay () {
-    form.classList.toggle("toggle-display");
-}
-
-
-let myLibrary = [];
-
+// Book Constructor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -17,24 +17,18 @@ function Book(title, author, pages, read) {
     this.read = read;
     this.info = function() {
         return `${title} by ${author}, ${pages} pages, ${read}`
-        // return title + " by " + author + ", " + pages + " pages," + read;
     }
 
 }
-
-// const purpleHibiscus = new Book ("Purple Hibiscus", "Chimamanda Ngozie Adichie", 307, "read");
-// console.log(purpleHibiscus.info());
-
+function toggleDisplay () {
+    form.classList.toggle("toggle-display");
+}
+// Adding book to Library and local storage
 function addBookToLibrary() {
     myLibrary.push(newBook);
-    saveLocal();
-    
+    saveLocal();    
 }
-
-
-let newBook;
-form.addEventListener("submit", submitBook);
-
+// Run this function on clicking submit button
 function submitBook(e) {
     e.preventDefault();
     newBook = Object.create(Book);
@@ -44,21 +38,10 @@ function submitBook(e) {
     newBook.read = document.querySelector("#read").checked;
     addBookToLibrary();
     createBookCard();
-    // console.log(myLibrary);
-    // console.log(newBook);
-    // console.log(document.querySelector("#title").value)
-    // console.log(document.querySelector("#author").value)
-    // console.log(document.querySelector("#pages").value)
-    // console.log(document.querySelector("#read").checked)
     toggleDisplay();
 
 }
-
-let myBooksDiv = document.querySelector("#myBooks");
-let readBtn;
-let removeBtn;
-
-
+// The Grid of Books
 function createBookCard() {
     myBooksDiv.innerHTML = "";
     for (let i = 0; i < myLibrary.length; i++) {
@@ -94,14 +77,14 @@ function createBookCard() {
         removeBtn.addEventListener("click", removeBook);
     }
 }
+// Remove Book Btn function
 function removeBook (e) {
     let indexToDelete = e.target.parentNode.dataset.index;
     myLibrary.splice(indexToDelete, 1);
     saveLocal();
     createBookCard();
-    // console.log(e.target.parentNode.dataset.index);
 }
-
+// Toggle Read button Function
 function toggleRead (e) {
     let readStatus = e.target.textContent;
     let index = e.target.parentNode.dataset.index;
@@ -116,27 +99,14 @@ function toggleRead (e) {
     }
     saveLocal();
 }
-
 // Local Storage
-
 function saveLocal() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   }
-  
-  function restoreLocal() {
+function restoreLocal() {
     myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
     if (myLibrary === null) myLibrary = [];
     createBookCard();
-  }
-  
-  restoreLocal();
-
-
-
-
-
-
-
-
-
-
+}
+// Call this function everytime my app is revisited or reloaded
+restoreLocal();
