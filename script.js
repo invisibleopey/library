@@ -88,6 +88,7 @@ function createBookCard() {
         myBooksDiv.appendChild(bookCard);
 
         removeBtn.addEventListener("click", removeBook);
+        readBtn.addEventListener("click", toggleRead);
     }
 }
 function removeBook (e) {
@@ -95,6 +96,17 @@ function removeBook (e) {
     myLibrary.splice(indexToDelete, 1);
     createBookCard();
     // console.log(e.target.parentNode.dataset.index);
+}
+
+function toggleRead (e) {
+    let readStatus = e.target.textContent;
+    if (readStatus === "Read") {
+        e.target.textContent = "Not read";
+        e.target.classList.add("not-read");
+    } else {
+        e.target.textContent = "Read";
+        e.target.classList.remove("not-read");
+    }
 }
 
 
