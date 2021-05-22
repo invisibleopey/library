@@ -79,7 +79,8 @@ function createBookCard() {
         if (myLibrary[i].read === true) {
             readBtn.textContent = "Read";
         } else {
-            readBtn.textContent = "Not read"
+            readBtn.textContent = "Not read";
+            readBtn.classList.add("not-read");
         }
         bookCard.appendChild(readBtn);
         removeBtn = document.createElement("button");
@@ -87,8 +88,8 @@ function createBookCard() {
         bookCard.appendChild(removeBtn);
         myBooksDiv.appendChild(bookCard);
 
-        removeBtn.addEventListener("click", removeBook);
         readBtn.addEventListener("click", toggleRead);
+        removeBtn.addEventListener("click", removeBook);
     }
 }
 function removeBook (e) {
@@ -100,10 +101,13 @@ function removeBook (e) {
 
 function toggleRead (e) {
     let readStatus = e.target.textContent;
+    let index = e.target.parentNode.dataset.index;
     if (readStatus === "Read") {
+        myLibrary[index].read = false;
         e.target.textContent = "Not read";
         e.target.classList.add("not-read");
     } else {
+        myLibrary[index].read = true;
         e.target.textContent = "Read";
         e.target.classList.remove("not-read");
     }
