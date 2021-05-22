@@ -41,7 +41,8 @@ function submitBook(e) {
     newBook.pages = document.querySelector("#pages").value;
     newBook.read = document.querySelector("#read").checked;
     addBookToLibrary();
-    console.log(myLibrary);
+    createBookCard();
+    // console.log(myLibrary);
     // console.log(newBook);
     // console.log(document.querySelector("#title").value)
     // console.log(document.querySelector("#author").value)
@@ -49,6 +50,58 @@ function submitBook(e) {
     // console.log(document.querySelector("#read").checked)
     toggleDisplay();
 
+}
+
+let myBooksDiv = document.querySelector("#myBooks");
+let readBtn;
+let removeBtn;
+
+
+function createBookCard() {
+    myBooksDiv.innerHTML = "";
+    for (let i = 0; i < myLibrary.length; i++) {
+        let bookCard = document.createElement("div");
+        if (bookCard.dataset.index == i) {
+            continue
+        } else {
+        bookCard.dataset.index = i;
+        let title = document.createElement("p");
+           title.textContent = myLibrary[i].title;
+        let author = document.createElement("p");
+           author.textContent = myLibrary[i].author;
+        let pages = document.createElement("p");
+           pages.textContent = myLibrary[i].pages + " Pages";
+        bookCard.appendChild(title);
+        bookCard.appendChild(author);
+        bookCard.appendChild(pages);
+        }
+        readBtn = document.createElement("button");
+        if (myLibrary[i].read === true) {
+            readBtn.textContent = "Read";
+        } else {
+            readBtn.textContent = "Not read"
+        }
+        bookCard.appendChild(readBtn);
+        removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        bookCard.appendChild(removeBtn);
+        myBooksDiv.appendChild(bookCard);
+    }
+    // myLibrary.forEach((index) => {
+    //     let bookCard = document.createElement("div");
+    //     bookCard.id = myLibrary[index];
+    //     let title = document.createElement("p")
+    //         .textContent = myLibrary[i].title;
+    //     let author = document.createElement("p")
+    //         .textContent = myLibrary[i].author;
+    //     let pages = document.createElement("p")
+    //         .textContent = myLibrary[i].pages + "Pages";
+    //     bookCard.appendChild(title);
+    //     bookCard.appendChild(author);
+    //     bookCard.appendChild(pages);
+    //     myBooksDiv.appendChild(bookCard);
+    //     console.log(bookCard);
+    // })
 }
 
 
