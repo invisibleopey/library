@@ -86,24 +86,16 @@ function createBookCard() {
         removeBtn.textContent = "Remove";
         bookCard.appendChild(removeBtn);
         myBooksDiv.appendChild(bookCard);
-    }
-    // myLibrary.forEach((index) => {
-    //     let bookCard = document.createElement("div");
-    //     bookCard.id = myLibrary[index];
-    //     let title = document.createElement("p")
-    //         .textContent = myLibrary[i].title;
-    //     let author = document.createElement("p")
-    //         .textContent = myLibrary[i].author;
-    //     let pages = document.createElement("p")
-    //         .textContent = myLibrary[i].pages + "Pages";
-    //     bookCard.appendChild(title);
-    //     bookCard.appendChild(author);
-    //     bookCard.appendChild(pages);
-    //     myBooksDiv.appendChild(bookCard);
-    //     console.log(bookCard);
-    // })
-}
 
+        removeBtn.addEventListener("click", removeBook);
+    }
+}
+function removeBook (e) {
+    let indexToDelete = e.target.parentNode.dataset.index;
+    myLibrary.splice(indexToDelete, 1);
+    createBookCard();
+    // console.log(e.target.parentNode.dataset.index);
+}
 
 
 
