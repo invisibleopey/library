@@ -9,13 +9,15 @@ let removeBtn;
 addBookBtn.addEventListener("click", toggleFormDisplay);
 form.addEventListener("submit", submitBook);
 
-// Book Constructor
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = function() {
+// Book Class
+class Book {
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+    info () {
         return `${title} by ${author}, ${pages} pages, ${read}`
     }
 
@@ -102,7 +104,7 @@ function toggleRead (e) {
 // Local Storage
 function saveLocal() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
-  }
+}
 function restoreLocal() {
     myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
     if (myLibrary === null) myLibrary = [];
