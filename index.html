@@ -19,17 +19,6 @@
     </header>
     <main id="container">
         <button id="add-book-btn">+ New Book</button>
-        <form action="#" class="toggle-display" id="addBookForm">
-            <h2>Add new book</h2>
-            <input type="text" name="title" id="title" placeholder="Title" required>
-            <input type="text" name="author" id="author" placeholder="Author" required>
-            <input type="number" name="pages" id="pages" placeholder="Pages" required>
-            <label for="read">
-                Read?
-                <input type="checkbox" name="read" id="read">
-            </label>
-            <input type="submit" value="Submit">
-        </form>
         <div id="myBooks">
             <!-- <div id="book1">
                 <p>The New Book of Life</p>
@@ -52,6 +41,21 @@
                 <button id="readStatus">Read</button>
                 <button id="remove">Remove</button> -->
             </div>
+            </div>
+        </div>
+        <div class="bg-modal">
+            <div class="modal-contents">
+                <div class="close">+</div>
+                <form action="#" class="toggle-display" id="addBookForm">
+                    <h2>Add new book</h2>
+                    <input type="text" name="title" id="title" placeholder="Title" required>
+                    <input type="text" name="author" id="author" placeholder="Author" required>
+                    <input type="number" name="pages" id="pages" placeholder="Pages" required>
+                    <label for="read">
+                        Read? </label>
+                        <input type="checkbox" name="read" id="read">
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         </div>
     </main>
