@@ -45,6 +45,7 @@ function submitBook(e) {
   newBook.read = document.querySelector('#read').checked;
   addBookToLibrary();
   createBookCard();
+  form.reset();
   closeFormDisplay();
 }
 // The Grid of Books
