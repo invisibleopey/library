@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -9,11 +10,21 @@ const firebaseConfig = {
   appId: '1:732168905670:web:47a4b1c9224b25ffe788c7',
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+let user;
+
+const loginWithGoogle = async () => {
+  const userCredentials = await signInWithRedirect(auth, provider);
+  user = await userCredentials.user;
+};
 
 const form = document.querySelector('form');
 const addBookBtn = document.querySelector('#add-book-btn');
 const closeFormBtn = document.querySelector('.close');
+const loginBtn = document.querySelector('#loginBtn');
+const logoutBtn = document.querySelector('#logoutBtn');
 let myLibrary = [];
 let newBook;
 let myBooksDiv = document.querySelector('#myBooks');
@@ -23,6 +34,8 @@ let removeBtn;
 addBookBtn.addEventListener('click', toggleFormDisplay);
 form.addEventListener('submit', submitBook);
 closeFormBtn.addEventListener('click', closeFormDisplay);
+loginBtn.addEventListener('click', loginWithGoogle);
+logoutBtn.addEventListener('click', logOut);
 
 // Book Class
 class Book {
