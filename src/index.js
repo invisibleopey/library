@@ -1,5 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -23,6 +29,20 @@ const loginWithGoogle = async () => {
 const logOut = async () => {
   signOut(auth);
 };
+
+const monitorAuthState = async () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginBtn.classList.add('hide-btn');
+      logoutBtn.classList.remove('hide-btn');
+    } else {
+      logoutBtn.classList.add('hide-btn');
+      loginBtn.classList.remove('hide-btn');
+    }
+  });
+};
+
+monitorAuthState();
 
 const form = document.querySelector('form');
 const addBookBtn = document.querySelector('#add-book-btn');
