@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -18,6 +18,10 @@ let user;
 const loginWithGoogle = async () => {
   const userCredentials = await signInWithRedirect(auth, provider);
   user = await userCredentials.user;
+};
+
+const logOut = async () => {
+  signOut(auth);
 };
 
 const form = document.querySelector('form');
