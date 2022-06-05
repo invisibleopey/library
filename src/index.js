@@ -1,3 +1,16 @@
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
+  authDomain: 'library-66b59.firebaseapp.com',
+  projectId: 'library-66b59',
+  storageBucket: 'library-66b59.appspot.com',
+  messagingSenderId: '732168905670',
+  appId: '1:732168905670:web:47a4b1c9224b25ffe788c7',
+};
+
+const app = initializeApp(firebaseConfig);
+
 const form = document.querySelector('form');
 const addBookBtn = document.querySelector('#add-book-btn');
 const closeFormBtn = document.querySelector('.close');
