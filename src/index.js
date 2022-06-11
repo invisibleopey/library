@@ -6,7 +6,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, collection, addDoc, query, where, onSnapshot } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  onSnapshot,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -48,7 +57,11 @@ const monitorAuthState = async () => {
         // Reset the Library to empty array to prevent data duplication
         myLibrary = [];
         querySnapshot.forEach((book) => {
-          myLibrary.push(book.data());
+          let bookId = book.id;
+          myLibrary.push({
+            ...book.data(),
+            bookId,
+          });
         });
         createBookCard();
       });
@@ -171,14 +184,19 @@ function createBookCard() {
   }
 }
 // Remove Book Btn function
-function removeBook(e) {
+async function removeBook(e) {
   let indexToDelete = e.target.parentNode.dataset.index;
-  myLibrary.splice(indexToDelete, 1);
-  saveLocal();
-  createBookCard();
+  if (auth.currentUser) {
+    let targetBookId = myLibrary[indexToDelete].bookId;
+    await deleteDoc(doc(db, 'books', targetBookId));
+  } else {
+    myLibrary.splice(indexToDelete, 1);
+    saveLocal();
+    createBookCard();
+  }
 }
 // Toggle Read button Function
-function toggleRead(e) {
+async function toggleRead(e) {
   let readStatus = e.target.textContent;
   let index = e.target.parentNode.dataset.index;
   if (readStatus === 'Read') {
@@ -203,3 +221,4 @@ function restoreLocal() {
 }
 
 // TODO: Display User Name beside the log out button
+// TODO: Add a timestamp to order the books by
