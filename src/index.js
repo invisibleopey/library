@@ -6,6 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -16,14 +17,18 @@ const firebaseConfig = {
   appId: '1:732168905670:web:47a4b1c9224b25ffe788c7',
 };
 
+// Initialize firebase app
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-let user;
+const db = getFirestore(firebaseApp);
 
 const loginWithGoogle = async () => {
-  const userCredentials = await signInWithRedirect(auth, provider);
-  user = await userCredentials.user;
+  try {
+    const userCredentials = await signInWithRedirect(auth, provider);
+  } catch (error) {
+    console.error('There was an error logging in with google redirect', error);
+  }
 };
 
 const logOut = async () => {
@@ -38,6 +43,7 @@ const monitorAuthState = async () => {
     } else {
       logoutBtn.classList.add('hide-btn');
       loginBtn.classList.remove('hide-btn');
+      restoreLocal();
     }
   });
 };
@@ -82,16 +88,33 @@ function closeFormDisplay() {
 }
 // Adding book to Library and local storage
 function addBookToLibrary() {
-  myLibrary.push(newBook);
-  saveLocal();
+  if (auth.currentUser) {
+    addBookToCloud();
+  } else {
+    myLibrary.push(newBook);
+    saveLocal();
+  }
 }
+// Add the Book to Books Collection
+
+const addBookToCloud = async () => {
+  try {
+    const bookRef = await addDoc(collection(db, 'books'), {
+      ...newBook,
+      userId: auth.currentUser.uid,
+    });
+  } catch (error) {
+    console.error('Error writing document:', error);
+  }
+};
+
 // Run this function on clicking submit button
 function submitBook(e) {
   e.preventDefault();
   newBook = Object.create(Book);
   newBook.title = document.querySelector('#title').value;
   newBook.author = document.querySelector('#author').value;
-  newBook.pages = document.querySelector('#pages').value;
+  newBook.pages = Number(document.querySelector('#pages').value);
   newBook.read = document.querySelector('#read').checked;
   addBookToLibrary();
   createBookCard();
@@ -166,4 +189,3 @@ function restoreLocal() {
   createBookCard();
 }
 // Call this function everytime my app is revisited or reloaded
-restoreLocal();
