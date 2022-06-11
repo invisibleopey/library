@@ -14,10 +14,12 @@ body {
 header {
   background: rgba(26, 41, 48, 0.8);
   padding: 20px 0 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.fa-book {
-  font-size: 3em;
-  color: rgba(10, 22, 18, 0.8);
+.hide-btn {
+  display: none;
 }
 main {
   margin-top: 2em;
