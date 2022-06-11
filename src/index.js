@@ -15,6 +15,7 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
+  updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -200,15 +201,32 @@ async function toggleRead(e) {
   let readStatus = e.target.textContent;
   let index = e.target.parentNode.dataset.index;
   if (readStatus === 'Read') {
-    myLibrary[index].read = false;
+    if (auth.currentUser) {
+      let targetBookId = myLibrary[index].bookId;
+      const bookRef = doc(db, 'books', targetBookId);
+      await updateDoc(bookRef, {
+        read: false,
+      });
+    } else {
+      myLibrary[index].read = false;
+      saveLocal();
+    }
     e.target.textContent = 'Not read';
     e.target.classList.add('not-read');
   } else {
-    myLibrary[index].read = true;
+    if (auth.currentUser) {
+      let targetBookId = myLibrary[index].bookId;
+      const bookRef = doc(db, 'books', targetBookId);
+      await updateDoc(bookRef, {
+        read: true,
+      });
+    } else {
+      myLibrary[index].read = true;
+      saveLocal();
+    }
     e.target.textContent = 'Read';
     e.target.classList.remove('not-read');
   }
-  saveLocal();
 }
 // Local Storage
 function saveLocal() {
