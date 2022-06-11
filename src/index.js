@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, query, where, onSnapshot } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2-o9TQMPUgsIJfqYjUfy8Rt8GOGsiYDg',
@@ -36,14 +36,27 @@ const logOut = async () => {
 };
 
 const monitorAuthState = async () => {
+  let unsubscribe;
   onAuthStateChanged(auth, (user) => {
     if (user) {
       loginBtn.classList.add('hide-btn');
       logoutBtn.classList.remove('hide-btn');
+      // Set up event listener for books collection
+      const queryCol = query(collection(db, 'books'), where('userId', '==', auth.currentUser.uid));
+
+      unsubscribe = onSnapshot(queryCol, (querySnapshot) => {
+        // Reset the Library to empty array to prevent data duplication
+        myLibrary = [];
+        querySnapshot.forEach((book) => {
+          myLibrary.push(book.data());
+        });
+        createBookCard();
+      });
     } else {
       logoutBtn.classList.add('hide-btn');
       loginBtn.classList.remove('hide-btn');
       restoreLocal();
+      unsubscribe();
     }
   });
 };
@@ -188,4 +201,5 @@ function restoreLocal() {
   if (myLibrary === null) myLibrary = [];
   createBookCard();
 }
-// Call this function everytime my app is revisited or reloaded
+
+// TODO: Display User Name beside the log out button
