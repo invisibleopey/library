@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myLibrary</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo"><a href="">myLibrary</a></div>
+      <div>
+        <span>Welcome</span>
+        <span id="displayName"></span>
+      </div>
+      <button class="login-btn" id="loginBtn">Log In</button>
+      <button class="logout-btn" id="logoutBtn">Log Out</button>
+    </header>
+    <main id="container">
+      <button id="add-book-btn">+ New Book</button>
+      <div id="myBooks"></div>
+      <div class="bg-modal">
+        <div class="modal-contents">
+          <div class="close">+</div>
+          <form action="#" class="toggle-display" id="addBookForm">
+            <h2>Add new book</h2>
+            <input type="text" name="title" id="title" placeholder="Title" required />
+            <input type="text" name="author" id="author" placeholder="Author" required />
+            <input type="number" name="pages" id="pages" placeholder="Pages" required />
+            <label for="read"> Read? </label>
+            <input type="checkbox" name="read" id="read" />
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+      </div>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>
