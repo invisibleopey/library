@@ -173,9 +173,16 @@ function submitBook(e) {
   form.reset();
   closeFormDisplay();
 }
+
+function clearContent(content) {
+  while (content.firstChild) {
+    content.removeChild(content.firstChild);
+  }
+}
+
 // The Grid of Books
 function createBookCard() {
-  myBooksDiv.innerHTML = '';
+  clearContent(myBooksDiv);
   for (let i = 0; i < myLibrary.length; i++) {
     let bookCard = document.createElement('div');
     if (bookCard.dataset.index == i) {
