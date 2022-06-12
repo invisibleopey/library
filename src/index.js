@@ -16,6 +16,8 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  Timestamp,
+  orderBy,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -53,7 +55,11 @@ const monitorAuthState = async () => {
       loginBtn.classList.add('hide-btn');
       logoutBtn.classList.remove('hide-btn');
       // Set up event listener for books collection
-      const queryCol = query(collection(db, 'books'), where('userId', '==', auth.currentUser.uid));
+      const queryCol = query(
+        collection(db, 'books'),
+        where('userId', '==', auth.currentUser.uid),
+        orderBy('createdAt', 'desc'),
+      );
 
       unsubscribe = onSnapshot(queryCol, (querySnapshot) => {
         // Reset the Library to empty array to prevent data duplication
@@ -124,7 +130,7 @@ function toggleFormDisplay() {
 function closeFormDisplay() {
   document.querySelector('.bg-modal').style.display = 'none';
 }
-// Adding book to Library and local storage
+// Adding book to Library and Cloud/local storage
 function addBookToLibrary() {
   if (auth.currentUser) {
     addBookToCloud();
@@ -140,6 +146,7 @@ const addBookToCloud = async () => {
     const bookRef = await addDoc(collection(db, 'books'), {
       ...newBook,
       userId: auth.currentUser.uid,
+      createdAt: Timestamp.fromDate(new Date()),
     });
   } catch (error) {
     console.error('Error writing document:', error);
@@ -249,7 +256,6 @@ function restoreLocal() {
   createBookCard();
 }
 
-// TODO: Add a timestamp to order the books by
 // TODO: Style the book cards properly
 // TODO: Add book icon for title
 // TODO: Make the logo clickable
