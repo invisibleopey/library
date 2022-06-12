@@ -52,15 +52,13 @@ const monitorAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       showDisplayName();
-      loginBtn.classList.add('hide-btn');
-      logoutBtn.classList.remove('hide-btn');
+      handleLogBtnsOn();
       // Set up event listener for books collection
       const queryCol = query(
         collection(db, 'books'),
         where('userId', '==', auth.currentUser.uid),
         orderBy('createdAt', 'desc'),
       );
-
       unsubscribe = onSnapshot(queryCol, (querySnapshot) => {
         // Reset the Library to empty array to prevent data duplication
         myLibrary = [];
@@ -74,8 +72,7 @@ const monitorAuthState = async () => {
         createBookCard();
       });
     } else {
-      logoutBtn.classList.add('hide-btn');
-      loginBtn.classList.remove('hide-btn');
+      handleLogBtnOff();
       restoreLocal();
       unsubscribe();
       removeDisplayName();
@@ -89,6 +86,16 @@ const showDisplayName = () => {
 
 const removeDisplayName = () => {
   displayName.textContent = 'Guest';
+};
+
+const handleLogBtnsOn = () => {
+  loginBtn.classList.add('hide-btn');
+  logoutBtn.classList.remove('hide-btn');
+};
+
+const handleLogBtnOff = () => {
+  logoutBtn.classList.add('hide-btn');
+  loginBtn.classList.remove('hide-btn');
 };
 
 monitorAuthState();
@@ -255,7 +262,3 @@ function restoreLocal() {
   if (myLibrary === null) myLibrary = [];
   createBookCard();
 }
-
-// TODO: Style the book cards properly
-// TODO: Add book icon for title
-// TODO: Make the logo clickable
