@@ -49,6 +49,7 @@ const monitorAuthState = async () => {
   let unsubscribe;
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      showDisplayName();
       loginBtn.classList.add('hide-btn');
       logoutBtn.classList.remove('hide-btn');
       // Set up event listener for books collection
@@ -71,8 +72,17 @@ const monitorAuthState = async () => {
       loginBtn.classList.remove('hide-btn');
       restoreLocal();
       unsubscribe();
+      removeDisplayName();
     }
   });
+};
+
+const showDisplayName = () => {
+  displayName.textContent = auth.currentUser.displayName;
+};
+
+const removeDisplayName = () => {
+  displayName.textContent = 'Guest';
 };
 
 monitorAuthState();
@@ -85,6 +95,7 @@ const logoutBtn = document.querySelector('#logoutBtn');
 let myLibrary = [];
 let newBook;
 let myBooksDiv = document.querySelector('#myBooks');
+const displayName = document.querySelector('#displayName');
 let readBtn;
 let removeBtn;
 
@@ -238,5 +249,7 @@ function restoreLocal() {
   createBookCard();
 }
 
-// TODO: Display User Name beside the log out button
 // TODO: Add a timestamp to order the books by
+// TODO: Style the book cards properly
+// TODO: Add book icon for title
+// TODO: Make the logo clickable
